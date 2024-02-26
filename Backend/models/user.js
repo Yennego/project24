@@ -5,18 +5,26 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+
   email: {
     type: String,
     required: true,
   },
-  roles: {
-    type: String,
-    enum: ["student", "faculty", "admin"],
-    default: "student",
-  },
+
   password: {
     type: String,
     required: true,
+  },
+
+  roles: {
+    type: String,
+    enum: ["student", "staff", "admin"],
+    default: "student",
+  },
+
+  staff: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Staff",
   },
 });
 

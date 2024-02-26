@@ -16,7 +16,7 @@ connectDB();
 
 // Import routes
 const usersRouter = require("./routes/users");
-const facultiesRouter = require("./routes/faculties");
+const stavesRouter = require("./routes/staves");
 const documentsRouter = require("./routes/documents");
 const departmentsRouter = require("./routes/departments");
 const categoriesRouter = require("./routes/categories");
@@ -26,7 +26,7 @@ app.use(express.json());
 
 // Use routes
 app.use("/api/users", usersRouter);
-app.use("/api/faculties", facultiesRouter);
+app.use("/api/staves", stavesRouter);
 app.use("/api/documents", documentsRouter);
 app.use("/api/departments", departmentsRouter);
 app.use("/api/categories", categoriesRouter);

@@ -1,0 +1,57 @@
+# GET http://localhost:8000/api/users
+
+# GET http://localhost:8000/api/users/getUser/65dc7d7aa907c9d7e946608f
+
+###
+
+# POST http://localhost:8000/api/users/createUser
+# Content-Type: application/json
+
+# [
+#   {
+#   "name": "Konneh Lablah",
+#   "email": "konblah@gmail.com",
+#   "password": "88888",
+#   "roles": "student"
+#   },
+
+#   {
+#   "name": "Kun Kollie",
+#   "email": "kjun@gmail.com",
+#   "password": "999999",
+#   "roles": "student"
+#   }
+# ]
+
+# POST http://localhost:8000/api/users/createUsersBatch
+# Content-Type: application/json
+
+# [
+#   {
+#   "name": "Peter Paul",
+#   "email": "ppaul@gmail.com",
+#   "password": "777777",
+#   "roles": "student"
+#   },
+
+#   {
+#   "name": "Young Old",
+#   "email": "ygold@gmail.com",
+#   "password": "12345678",
+#   "roles": "student"
+#   }
+# ]
+
+###
+
+# PUT http://localhost:8000/api/users/updateUser/
+# Content-Type: application/json
+
+# {
+#   "name": "Zayzay Yen",
+#   "email": "yen@gmail.com",
+#   "password": "123zayzay",
+#   "roles": "faculty"
+# }
+
+# DELETE http://localhost:8000/api/users/deleteUser/65dca2116188d9363e7d6e26

@@ -6,10 +6,12 @@ const departmentSchema = new mongoose.Schema({
     required: true,
     unique: true,
   },
-  dean: {
-    type: String,
-    required: true,
-  },
+  categories: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Category",
+    },
+  ],
 });
 
 const Department = mongoose.model("Department", departmentSchema);

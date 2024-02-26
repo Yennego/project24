@@ -5,23 +5,23 @@ const authorize = require("../middleware/authorization");
 
 router.get("/", documentControllers.getAllDocuments);
 router.get(
-  "/:id",
-  authorize(["admin", "faculty"]),
+  "getDocument/:id",
+  authorize(["admin", "staff"]),
   documentControllers.getDocument
 );
 router.post(
-  "/",
-  authorize(["admin", "faculty"]),
+  "createDocument/",
+  authorize(["admin", "staff"]),
   documentControllers.createDocument
 );
 router.put(
-  "/:id",
-  authorize(["admin", "faculty"]),
+  "updateDocument/:id",
+  authorize(["admin", "staff"]),
   documentControllers.updateDocument
 );
 router.delete(
-  "/:id",
-  authorize(["admin", "faculty"]),
+  "deleteDocument/:id",
+  authorize(["admin", "staff"]),
   documentControllers.deleteDocument
 );
 

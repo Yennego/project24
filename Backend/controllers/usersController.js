@@ -20,20 +20,52 @@ exports.getUsers = async (req, res) => {
 };
 
 exports.createUser = async (req, res) => {
-  const user = new User({
-    name: req.body.name,
-    email: req.body.email,
-    roles: req.body.roles,
-    password: req.body.password,
-  });
+  let usersData = req.body;
+
+  //check if it's an array of users or a single user object
+  if (!Array.isArray(usersData)) {
+    // If it's a single user object, convert it to an array
+    usersData = [usersData];
+  }
 
   try {
-    const newUser = await user.save();
-    res.status(201).json(newUser);
+    const createdUsers = await Promise.all(
+      usersData.map(async (userData) => {
+        const user = new User(userData);
+        return await user.save();
+      })
+    );
+    res.status(201).json(createdUsers);
   } catch (err) {
+    // Handle any errors
     res.status(400).json({ message: err.message });
   }
 };
+
+//   const user = new User({
+//     name: req.body.name,
+//     email: req.body.email,
+//     roles: req.body.roles,
+//     password: req.body.password,
+//   });
+
+//   try {
+//     const newUser = await user.save();
+//     res.status(201).json(newUser);
+//   } catch (err) {
+//     res.status(400).json({ message: err.message });
+//   }
+// };
+
+// exports.createUsersBatch = async (req, res) => {
+//   try {
+//     const users = req.body;
+//     const createdUsers = await User.insertMany(users);
+//     res.status(201).json(createdUsers);
+//   } catch (err) {
+//     res.status(400).json({ message: err.message });
+//   }
+// };
 
 exports.updateUser = async (req, res) => {
   try {
