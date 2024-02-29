@@ -5,16 +5,21 @@ exports.getAllDepartments = async (req, res) => {
     const departments = await Department.find();
     res.status(200).json(departments);
   } catch (error) {
-    res.status(500).json(error);
+    console.error("Error fetching departments:", error);
+    res.status(500).json({ message: "Internal server error" });
   }
 };
 
 exports.getDepartment = async (req, res) => {
   try {
     const department = await Department.findById(req.params.id);
+    if (!department) {
+      return res.status(404).json({ message: "Department not found" });
+    }
     res.status(200).json(department);
   } catch (error) {
-    res.status(500).json(error);
+    console.error("Error fetching department:", error);
+    res.status(500).json({ message: "Internal server error" });
   }
 };
 
@@ -23,7 +28,8 @@ exports.createDepartment = async (req, res) => {
     const department = await Department.create(req.body);
     res.status(201).json(department);
   } catch (error) {
-    res.status(500).json(error);
+    console.error("Error creating department:", error);
+    res.status(500).json({ message: "Internal server error" });
   }
 };
 
@@ -34,17 +40,25 @@ exports.updateDepartment = async (req, res) => {
       req.body,
       { new: true }
     );
+    if (!department) {
+      return res.status(404).json({ message: "Department not found" });
+    }
     res.status(200).json(department);
   } catch (error) {
-    res.status(500).json(error);
+    console.error("Error updating department:", error);
+    res.status(500).json({ message: "Internal server error" });
   }
 };
 
 exports.deleteDepartment = async (req, res) => {
   try {
     const department = await Department.findByIdAndDelete(req.params.id);
-    res.status(200).json(department);
+    if (!department) {
+      return res.status(404).json({ message: "Department not found" });
+    }
+    res.status(200).json({ message: "Department deleted successfully" });
   } catch (error) {
-    res.status(500).json(error);
+    console.error("Error deleting department:", error);
+    res.status(500).json({ message: "Internal server error" });
   }
 };

@@ -17,3 +17,5 @@ const departmentSchema = new mongoose.Schema({
 const Department = mongoose.model("Department", departmentSchema);
 
 module.exports = Department;
+
+//IT College or Business College

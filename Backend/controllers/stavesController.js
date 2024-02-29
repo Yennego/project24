@@ -6,16 +6,21 @@ exports.getAllStaves = async (req, res) => {
     const staves = await Staff.find();
     res.status(200).json(staves);
   } catch (error) {
-    res.status(500).json(error);
+    console.error("Error fetching staff:", error);
+    res.status(500).json({ message: "Internal server error" });
   }
 };
 
 exports.getStaff = async (req, res) => {
   try {
     const staff = await Staff.findById(req.params.id);
+    if (!staff) {
+      return res.status(404).json({ message: "Staff not found" });
+    }
     res.status(200).json(staff);
   } catch (error) {
-    res.status(500).json(error);
+    console.error("Error fetching staff:", error);
+    res.status(500).json({ message: "Internal server error" });
   }
 };
 
@@ -39,7 +44,8 @@ exports.createStaff = async (req, res) => {
 
     res.status(201).json({ newStaff, newUser });
   } catch (error) {
-    res.status(500).json(error);
+    console.error("Error creating staff:", error);
+    res.status(500).json({ message: "Internal server error" });
   }
 };
 
@@ -50,17 +56,25 @@ exports.updateStaff = async (req, res) => {
       req.body,
       { new: true }
     );
+    if (!updatedStaff) {
+      return res.status(404).json({ message: "Staff not found" });
+    }
     res.status(200).json(updatedStaff);
   } catch (error) {
-    res.status(500).json(error);
+    console.error("Error updating staff:", error);
+    res.status(500).json({ message: "Internal server error" });
   }
 };
 
 exports.deleteStaff = async (req, res) => {
   try {
     const deletedStaff = await Staff.findByIdAndDelete(req.params.id);
-    res.status(200).json(deletedStaff);
+    if (!deletedStaff) {
+      return res.status(404).json({ message: "Staff not found" });
+    }
+    res.status(200).json({ message: "Staff deleted successfully" });
   } catch (error) {
-    res.status(500).json(error);
+    console.error("Error deleting staff:", error);
+    res.status(500).json({ message: "Internal server error" });
   }
 };
