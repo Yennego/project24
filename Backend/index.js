@@ -20,11 +20,13 @@ const stavesRouter = require("./routes/staves");
 const documentsRouter = require("./routes/documents");
 const departmentsRouter = require("./routes/departments");
 const categoriesRouter = require("./routes/categories");
+const homeRouter = require("./routes/home");
 
 // Middleware
 app.use(express.json());
 
 // Use routes
+app.use("/home", homeRouter);
 app.use("/api/users", usersRouter);
 app.use("/api/staves", stavesRouter);
 app.use("/api/documents", documentsRouter);

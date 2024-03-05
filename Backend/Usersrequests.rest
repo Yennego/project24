@@ -9,10 +9,10 @@
 
 # [
 #   {
-#   "name": "Konneh Lablah",
-#   "email": "konblah@gmail.com",
-#   "password": "88888",
-#   "roles": "student"
+#   "name": "Yennego Yennego",
+#   "email": "yenne@gmail.com",
+#   "password": "111111",
+#   "roles": "admin"
 #   },
 
 #   {
@@ -44,14 +44,14 @@
 
 ###
 
-# PUT http://localhost:8000/api/users/updateUser/
-# Content-Type: application/json
+PUT http://localhost:8000/api/users/updateUser/65dc7d7aa907c9d7e946608f
+Content-Type: application/json
 
-# {
-#   "name": "Zayzay Yen",
-#   "email": "yen@gmail.com",
-#   "password": "123zayzay",
-#   "roles": "faculty"
-# }
+{
+  "name": "Zayzay Yen",
+  "email": "yen@gmail.com",
+  "password": "123zayzay",
+  "roles": "admin"
+}
 
 # DELETE http://localhost:8000/api/users/deleteUser/65dca2116188d9363e7d6e26

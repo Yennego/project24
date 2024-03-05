@@ -5,22 +5,22 @@ const authorize = require("../middleware/authorization");
 
 router.get("/", documentControllers.getAllDocuments);
 router.get(
-  "getDocument/:id",
+  "/getDocument/:id",
   authorize(["admin", "staff"]),
   documentControllers.getDocument
 );
 router.post(
-  "createDocument/",
+  "/createDocument/",
   authorize(["admin", "staff"]),
   documentControllers.createDocument
 );
 router.put(
-  "updateDocument/:id",
+  "/updateDocument/:id",
   authorize(["admin", "staff"]),
   documentControllers.updateDocument
 );
 router.delete(
-  "deleteDocument/:id",
+  "/deleteDocument/:id",
   authorize(["admin", "staff"]),
   documentControllers.deleteDocument
 );
