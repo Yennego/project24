@@ -2,7 +2,7 @@
 node_modules/
 
 #ignore environments variables
-.env
+# .env
 
 #ignore package-lock file variables
 package-lock.json

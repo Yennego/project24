@@ -25,17 +25,21 @@ exports.getUsers = async (req, res) => {
 };
 
 exports.createUser = async (req, res) => {
-  let usersData = req.body;
+  let userData = req.body;
 
   //check if it's an array of users or a single user object
-  if (!Array.isArray(usersData)) {
+  if (!Array.isArray(userData)) {
     // If it's a single user object, convert it to an array
-    usersData = [usersData];
+    userData = [userData];
   }
 
   try {
     const createdUsers = await Promise.all(
-      usersData.map(async (userData) => {
+      userData.map(async (userData) => {
+        // Check if the required fields are present
+        if (!userData.password || !userData.email || !userData.name) {
+          throw new Error("Missing required fields");
+        }
         const user = new User(userData);
         return await user.save();
       })
