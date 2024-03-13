@@ -2,9 +2,10 @@ const express = require("express");
 const multer = require("multer");
 const router = express.Router();
 const documentControllers = require("../controllers/documentsController");
-const authorize = require("../middleware/authorization");
+const { authorize } = require("../middleware/authorization");
+const passport = require("passport");
 
-//multer config for handling file uploads
+// Multer configuration for handling file uploads
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, "uploads/"); // Save uploaded files to the "uploads" directory
@@ -16,7 +17,7 @@ const storage = multer.diskStorage({
 
 const fileFilter = function (req, file, cb) {
   if (file.mimetype === "application/pdf") {
-    cb(null, true); //accept only PDF files
+    cb(null, true); // Accept only PDF files
   } else {
     cb(new Error("Only PDF files are allowed"), false);
   }
@@ -27,25 +28,85 @@ const upload = multer({
   fileFilter: fileFilter,
 });
 
-//route to uploade PDF file
-router.post("/upload", upload.single("pdfFile"), documentControllers.upload);
-
-router.get("/", documentControllers.getAllDocuments);
-router.get("/getDocument/:id", authorize(), documentControllers.getDocument);
+// Route to upload PDF file
 router.post(
-  "/createDocument/",
-  authorize(),
+  "/uploads",
+  passport.authenticate("jwt", { session: false }),
+  upload.single("pdfFile"),
+  documentControllers.uploadDocument
+);
+
+// Use authorization middleware for role-based access control
+router.get(
+  "/",
+  passport.authenticate("jwt", { session: false }),
+  authorize(["admin", "user"]),
+  documentControllers.getAllDocuments
+);
+router.get(
+  "/:id",
+  passport.authenticate("jwt", { session: false }),
+  authorize(["admin", "user"]),
+  documentControllers.getDocument
+);
+router.post(
+  "/",
+  passport.authenticate("jwt", { session: false }),
+  authorize(["admin"]),
   documentControllers.createDocument
 );
 router.put(
-  "/updateDocument/:id",
-  authorize(),
+  "/:id",
+  passport.authenticate("jwt", { session: false }),
+  authorize(["admin"]),
   documentControllers.updateDocument
 );
 router.delete(
-  "/deleteDocument/:id",
-  authorize(),
+  "/:id",
+  passport.authenticate("jwt", { session: false }),
+  authorize(["admin"]),
   documentControllers.deleteDocument
 );
+
+//route to uploade PDF file
+// router.post("/uploads", upload.single("pdfFile"), (req, res, next) => {
+//   try {
+//     documentControllers.upload(req, res);
+//   } catch (error) {
+//     next(error); // Pass error to the error handler middleware
+//   }
+// });
+
+// // Error handler middleware for Multer upload errors
+// router.use((err, req, res, next) => {
+//   console.error(err);
+//   if (err instanceof multer.MulterError) {
+//     res.status(400).json({ message: "File upload error", error: err.message });
+//   } else {
+//     next(err); // Pass other errors to the global error handler middleware
+//   }
+// });
+
+// router.get("/", documentControllers.getAllDocuments);
+// router.get(
+//   "/getDocument/:id",
+//   authorize(["admin", "user"]),
+//   documentControllers.getDocument
+// );
+// router.post(
+//   "/createDocument/",
+//   authorize(["admin"]),
+//   documentControllers.createDocument
+// );
+// router.put(
+//   "/updateDocument/:id",
+//   authorize(["admin"]),
+//   documentControllers.updateDocument
+// );
+// router.delete(
+//   "/deleteDocument/:id",
+//   authorize(["admin"]),
+//   documentControllers.deleteDocument
+// );
 
 module.exports = router;

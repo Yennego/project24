@@ -7,7 +7,7 @@ dotenv.config();
 
 // Get the MongoDB connection URI from environment variables
 const dbURI = process.env.MONGODB_URI;
-const jwtSecret = process.env.JWT_SECRET;
+// const jwtSecret = process.env.JWT_SECRET;
 
 // Connect to MongoDB
 const connectDB = async () => {
@@ -23,4 +23,7 @@ const connectDB = async () => {
   }
 };
 
-module.exports = connectDB;
+// Get the JWT secret key from environment variables
+const jwtSecret = process.env.JWT_SECRET_KEY;
+
+module.exports = { connectDB, jwtSecret };

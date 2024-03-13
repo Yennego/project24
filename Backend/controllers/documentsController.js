@@ -1,12 +1,19 @@
+//documentController
 const Document = require("../models/document");
 
 exports.uploadDocument = async (req, res) => {
   try {
+    const user = req.user;
+    if (!user || !user._id) {
+      return res.status(403).json({ message: "Unauthorized" });
+    }
+    const author = req.body.author;
     // Create a new document record in the database
     const document = new Document({
       title: req.body.title,
       abstract: req.body.abstract,
-      user: req.body.userId,
+      user: user._id,
+      author: req.body.author,
       filePath: req.file.path, // Store the file path in the database
     });
     await document.save();
@@ -42,7 +49,7 @@ exports.getDocument = async (req, res) => {
 exports.createDocument = async (req, res) => {
   try {
     const user = req.user;
-    if (user.role !== "admin") {
+    if (!user || !user.roles.includes("admin")) {
       return res.status(403).json({ message: "Unauthorized" });
     }
     const document = new Document(req.body);
@@ -57,7 +64,7 @@ exports.createDocument = async (req, res) => {
 exports.updateDocument = async (req, res) => {
   try {
     const user = req.user;
-    if (user.role !== "admin") {
+    if (!user || !user.roles.includes("admin")) {
       return res.status(403).json({ message: "Unauthorized" });
     }
     const document = await Document.findByIdAndUpdate(req.params.id, req.body, {
@@ -76,7 +83,7 @@ exports.updateDocument = async (req, res) => {
 exports.deleteDocument = async (req, res) => {
   try {
     const user = req.user;
-    if (user.role !== "admin") {
+    if (!user || !user.roles.includes("admin")) {
       return res.status(403).json({ message: "Unauthorized" });
     }
     const document = await Document.findByIdAndDelete(req.params.id);

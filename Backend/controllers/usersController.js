@@ -1,4 +1,25 @@
 const User = require("../models/user");
+const bcrypt = require("bcrypt");
+const passport = require("../config/passport");
+
+exports.login = (req, res, next) => {
+  passport.authenticate("local", (err, user, info) => {
+    if (err) {
+      return next(err);
+    }
+    if (!user) {
+      return res.status(401).json({ message: "Authentication failed" });
+    }
+    req.logIn(user, (err) => {
+      if (err) {
+        return next(err);
+      }
+      return res
+        .status(200)
+        .json({ message: "Authentication successful", user });
+    });
+  })(req, res, next);
+};
 
 // Users controller functions
 exports.getAllUsers = async (req, res) => {
@@ -26,24 +47,35 @@ exports.getUsers = async (req, res) => {
 
 exports.createUser = async (req, res) => {
   let userData = req.body;
-
-  //check if it's an array of users or a single user object
-  if (!Array.isArray(userData)) {
-    // If it's a single user object, convert it to an array
-    userData = [userData];
-  }
+  console.log("Request body:", userData);
 
   try {
-    const createdUsers = await Promise.all(
-      userData.map(async (userData) => {
-        // Check if the required fields are present
-        if (!userData.password || !userData.email || !userData.name) {
-          throw new Error("Missing required fields");
-        }
-        const user = new User(userData);
-        return await user.save();
-      })
-    );
+    // If userData is not an array, convert it to an array containing a single object
+    if (!Array.isArray(userData)) {
+      userData = [userData];
+    }
+
+    for (const userObj of userData) {
+      // Check if the required fields are present
+      if (
+        !userObj.password ||
+        !userObj.email ||
+        !userObj.name ||
+        !userObj.roles
+      ) {
+        return res.status(400).json({ message: "Missing required fields" });
+      }
+
+      // Hash the plaintext password using bcrypt
+      const hashedPassword = await bcrypt.hash(userObj.password, 10); // Use a saltRounds value of 10
+
+      // Save the user object to the database with the hashed password
+      userObj.password = hashedPassword;
+    }
+
+    // Insert the user data, including the hashed passwords, into the database
+    const createdUsers = await User.insertMany(userData);
+
     res.status(201).json(createdUsers);
   } catch (error) {
     console.error("Error creating user:", error);

@@ -1,18 +1,57 @@
-// middleware authorization
+// middleware/authorization.js
+
+const jwt = require("jsonwebtoken");
+const jwtSecret = require("../config/db").jwtSecret;
+
 const authorize = (roles) => {
   return (req, res, next) => {
-    const userRole = req.user.role; // Assuming the user role is stored in req.user.roles
+    // Extract the JWT token from the request headers
+    const token =
+      req.headers.authorization && req.headers.authorization.split(" ")[1];
 
-    if (!userRole || !roles.includes(userRole)) {
-      return res.status(403).json({ message: "Unauthorized" });
+    // Check if the token exists
+    if (!token) {
+      return res.status(401).json({ message: "No token provided" });
     }
 
-    next();
+    try {
+      // Verify the token and extract the payload
+      const decoded = jwt.verify(token, jwtSecret);
+
+      // Extract the user roles from the decoded payload
+      const userRoles = decoded.roles;
+
+      // Check if the user roles include any of the required roles
+      if (!userRoles || !roles.some((role) => userRoles.includes(role))) {
+        return res.status(403).json({ message: "Unauthorized" });
+      }
+
+      // If the user is authorized, proceed to the next middleware
+      next();
+    } catch (error) {
+      // If there's an error verifying the token, return an error response
+      return res.status(401).json({ message: "Invalid token" });
+    }
   };
 };
 
-module.exports = authorize;
+// module.exports = { authorize };
 
+// const authorize = (roles) => {
+//   return (req, res, next) => {
+//     const userRoles = req.user && (req.user.role || req.user.roles);
+//     console.log("User role", userRoles);
+//     console.log("role", roles);
+//     console.log("reqUser", req.user);
+//     if (!userRoles || !roles.some((role) => userRoles.includes(role))) {
+//       return res.status(403).json({ message: "Unauthorized" });
+//     }
+
+//     next();
+//   };
+// };
+
+module.exports = { authorize };
 // const jwt = require("jsonwebtoken");
 
 // const authorize = (roles) => {

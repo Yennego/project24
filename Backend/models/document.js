@@ -14,6 +14,10 @@ const documentSchema = new mongoose.Schema({
     ref: "User",
     required: true,
   },
+  author: {
+    type: String,
+    required: true,
+  },
 });
 
 const Document = mongoose.model("Document", documentSchema);
