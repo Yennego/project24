@@ -3,7 +3,7 @@
 const jwt = require("jsonwebtoken");
 const jwtSecret = require("../config/db").jwtSecret;
 
-const authorize = (roles) => {
+const authorize = (...roles) => {
   return (req, res, next) => {
     // Extract the JWT token from the request headers
     const token =
@@ -11,31 +11,36 @@ const authorize = (roles) => {
 
     // Check if the token exists
     if (!token) {
+      console.error("No token provided");
       return res.status(401).json({ message: "No token provided" });
     }
 
     try {
       // Verify the token and extract the payload
       const decoded = jwt.verify(token, jwtSecret);
+      console.log("Decoded token payload:", decoded);
 
       // Extract the user roles from the decoded payload
       const userRoles = decoded.roles;
+      console.log("Decoded JWT payload:", decoded);
+      console.log("User roles:", userRoles);
 
       // Check if the user roles include any of the required roles
       if (!userRoles || !roles.some((role) => userRoles.includes(role))) {
+        console.error("Unauthorized: User roles do not match required roles");
         return res.status(403).json({ message: "Unauthorized" });
       }
 
       // If the user is authorized, proceed to the next middleware
       next();
     } catch (error) {
-      // If there's an error verifying the token, return an error response
+      console.error("Error verifying token:", error.message);
       return res.status(401).json({ message: "Invalid token" });
     }
   };
 };
 
-// module.exports = { authorize };
+module.exports = { authorize };
 
 // const authorize = (roles) => {
 //   return (req, res, next) => {
@@ -51,7 +56,7 @@ const authorize = (roles) => {
 //   };
 // };
 
-module.exports = { authorize };
+// module.exports = { authorize };
 // const jwt = require("jsonwebtoken");
 
 // const authorize = (roles) => {

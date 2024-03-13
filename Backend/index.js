@@ -1,4 +1,5 @@
 const express = require("express");
+const bodyParser = require("body-parser");
 const { connectDB } = require("./config/db");
 const session = require("express-session");
 const passport = require("./config/passport");

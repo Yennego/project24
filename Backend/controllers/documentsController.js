@@ -7,7 +7,13 @@ exports.uploadDocument = async (req, res) => {
     if (!user || !user._id) {
       return res.status(403).json({ message: "Unauthorized" });
     }
-    const author = req.body.author;
+
+    // Check if file is uploaded
+    if (!req.file) {
+      return res.status(400).json({ message: "No file uploaded" });
+    }
+
+    // const author = req.body.author;
     // Create a new document record in the database
     const document = new Document({
       title: req.body.title,
@@ -52,7 +58,22 @@ exports.createDocument = async (req, res) => {
     if (!user || !user.roles.includes("admin")) {
       return res.status(403).json({ message: "Unauthorized" });
     }
-    const document = new Document(req.body);
+
+    console.log("Request body:", req.body);
+
+    const { author, abstract, title, user: userId } = req.body;
+
+    if (!author || !abstract || !title || !userId) {
+      return res.status(400).json({ message: "Missing required fields" });
+    }
+
+    const document = new Document({
+      title: title,
+      abstract: abstract,
+      user: user._id, // Use user._id directly
+      author: author,
+    });
+
     await document.save();
     res.status(201).json(document);
   } catch (error) {

@@ -30,9 +30,9 @@ const upload = multer({
 
 // Route to upload PDF file
 router.post(
-  "/uploads",
+  "/",
   passport.authenticate("jwt", { session: false }),
-  upload.single("pdfFile"),
+  upload.single("filePath"),
   documentControllers.uploadDocument
 );
 
@@ -49,12 +49,12 @@ router.get(
   authorize(["admin", "user"]),
   documentControllers.getDocument
 );
-router.post(
-  "/",
-  passport.authenticate("jwt", { session: false }),
-  authorize(["admin"]),
-  documentControllers.createDocument
-);
+// router.post(
+//   "/create",
+//   passport.authenticate("jwt", { session: false }),
+//   authorize(["admin"]),
+//   documentControllers.createDocument
+// );
 router.put(
   "/:id",
   passport.authenticate("jwt", { session: false }),
