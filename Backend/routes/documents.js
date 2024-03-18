@@ -40,13 +40,13 @@ router.post(
 router.get(
   "/",
   passport.authenticate("jwt", { session: false }),
-  authorize(["admin", "user"]),
+  authorize("admin", "user"),
   documentControllers.getAllDocuments
 );
 router.get(
-  "/:id",
+  "/getDocument/:id",
   passport.authenticate("jwt", { session: false }),
-  authorize(["admin", "user"]),
+  authorize("admin", "user"),
   documentControllers.getDocument
 );
 // router.post(
@@ -56,15 +56,15 @@ router.get(
 //   documentControllers.createDocument
 // );
 router.put(
-  "/:id",
+  "/updateDocument/:id",
   passport.authenticate("jwt", { session: false }),
   authorize(["admin"]),
   documentControllers.updateDocument
 );
 router.delete(
-  "/:id",
+  "/deleteDocument/:id",
   passport.authenticate("jwt", { session: false }),
-  authorize(["admin"]),
+  authorize("admin"),
   documentControllers.deleteDocument
 );
 

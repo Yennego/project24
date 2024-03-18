@@ -25,9 +25,12 @@ const authorize = (...roles) => {
       console.log("Decoded JWT payload:", decoded);
       console.log("User roles:", userRoles);
 
+      // Convert userRoles to an array if it's not already
+      const userRolesArray = Array.isArray(userRoles) ? userRoles : [userRoles];
       // Check if the user roles include any of the required roles
-      if (!userRoles || !roles.some((role) => userRoles.includes(role))) {
+      if (!roles.some((role) => userRolesArray.includes(role))) {
         console.error("Unauthorized: User roles do not match required roles");
+        console.log("Required roles:", roles);
         return res.status(403).json({ message: "Unauthorized" });
       }
 

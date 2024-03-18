@@ -11,7 +11,7 @@ dotenv.config();
 
 const app = express();
 
-// app.use(express.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 //MongoDB connection URI and JWT secret key
 const dbURI = process.env.MONGODB_URI;

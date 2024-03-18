@@ -31,8 +31,22 @@ exports.uploadDocument = async (req, res) => {
 
 exports.getAllDocuments = async (req, res) => {
   try {
-    const documents = await Document.find();
-    res.status(200).json(documents);
+    const user = req.user;
+    console.log("User:", user);
+    if (!user) {
+      return res.status(403).json({ message: "Unauthorized" });
+    }
+
+    // console.log("Decoded JWT payload:", user);
+    console.log("User roles dc:", user.roles);
+
+    let documents;
+    if (user.roles.includes("admin") || user.roles.includes("user")) {
+      documents = await Document.find();
+      res.status(200).json(documents);
+    } else {
+      return res.status(403).json({ message: "authorized" });
+    }
   } catch (error) {
     console.error("Error fetching documents:", error);
     res.status(500).json({ message: "Internal server error" });
@@ -70,7 +84,7 @@ exports.createDocument = async (req, res) => {
     const document = new Document({
       title: title,
       abstract: abstract,
-      user: user._id, // Use user._id directly
+      user: user._id,
       author: author,
     });
 
