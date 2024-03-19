@@ -55,7 +55,7 @@ app.use("/api/departments", departmentsRouter);
 app.use("/api/categories", categoriesRouter);
 
 // Route for handling file uploads with authorization middleware
-app.use("/api/uploads", authorize(["admin"]), documentsRouter);
+app.use("/api/uploads", authorize("admin"), documentsRouter);
 
 // app.get("/api/protected", authorize(["admin"]), (req, res) => {
 //   res.json({ message: "This route is protected" });

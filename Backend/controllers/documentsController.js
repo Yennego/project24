@@ -102,9 +102,29 @@ exports.updateDocument = async (req, res) => {
     if (!user || !user.roles.includes("admin")) {
       return res.status(403).json({ message: "Unauthorized" });
     }
-    const document = await Document.findByIdAndUpdate(req.params.id, req.body, {
-      new: true,
-    });
+
+    // extracting fields from request body to update document
+    const { title, abstract, author } = req.body;
+
+    //construct update object with provided fields
+    const updateFields = {};
+    if (title) {
+      updateFields.title = title;
+    }
+    if (abstract) {
+      updateFields.abstract = abstract;
+    }
+    if (author) {
+      updateFields.author = author;
+    }
+
+    const document = await Document.findByIdAndUpdate(
+      req.params.id,
+      updateFields,
+      {
+        new: true,
+      }
+    );
     if (!document) {
       return res.status(404).json({ message: "Document not found" });
     }

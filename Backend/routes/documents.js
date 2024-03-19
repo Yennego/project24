@@ -58,7 +58,7 @@ router.get(
 router.put(
   "/updateDocument/:id",
   passport.authenticate("jwt", { session: false }),
-  authorize(["admin"]),
+  authorize("admin"),
   documentControllers.updateDocument
 );
 router.delete(
