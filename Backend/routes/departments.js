@@ -1,11 +1,38 @@
 const express = require("express");
 const router = express.Router();
 const departmentsController = require("../controllers/departmentsController");
+const { authorize } = require("../middleware/authorization");
+const passport = require("passport");
 
-router.get("/", departmentsController.getAllDepartments);
-router.get("/getDepartment/:id", departmentsController.getDepartment);
-router.post("/createDepartment", departmentsController.createDepartment);
-router.put("/updateDepartment/:id", departmentsController.updateDepartment);
-router.delete("/deleteDepartment/:id", departmentsController.deleteDepartment);
+router.get(
+  "/",
+  passport.authenticate("jwt", { session: false }),
+  authorize("admin", "user"),
+  departmentsController.getAllDepartments
+);
+router.get(
+  "/getDepartment/:id",
+  passport.authenticate("jwt", { session: false }),
+  authorize("admin", "user"),
+  departmentsController.getDepartment
+);
+router.post(
+  "/createDepartment",
+  passport.authenticate("jwt", { session: false }),
+  authorize("admin"),
+  departmentsController.createDepartment
+);
+router.put(
+  "/updateDepartment/:id",
+  passport.authenticate("jwt", { session: false }),
+  authorize("admin"),
+  departmentsController.updateDepartment
+);
+router.delete(
+  "/deleteDepartment/:id",
+  passport.authenticate("jwt", { session: false }),
+  authorize("admin"),
+  departmentsController.deleteDepartment
+);
 
 module.exports = router;

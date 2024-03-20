@@ -51,7 +51,7 @@ exports.createCategory = async (req, res) => {
 
 // Update a category by ID
 exports.updateCategory = async (req, res) => {
-  const categoryId = req.params.categoryId;
+  const categoryId = req.params.id;
   const updates = req.body;
 
   try {

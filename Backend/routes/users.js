@@ -34,6 +34,8 @@ router.post("/login", async (req, res) => {
   }
 });
 
+router.post("/logout", usersController.logout);
+
 //routes
 router.get("/", usersController.getAllUsers);
 router.get("/getUser/:id", usersController.getUsers);

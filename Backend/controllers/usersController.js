@@ -2,6 +2,7 @@ const User = require("../models/user");
 const bcrypt = require("bcrypt");
 const passport = require("../config/passport");
 
+// login function
 exports.login = (req, res, next) => {
   passport.authenticate("local", (err, user, info) => {
     if (err) {
@@ -21,8 +22,19 @@ exports.login = (req, res, next) => {
   })(req, res, next);
 };
 
+// Logout function
+exports.logout = (req, res) => {
+  try {
+    req.logout(() => {});
+    res.status(200).json({ message: "Logout successful" });
+  } catch (error) {
+    console.error("Error during logout:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+};
+
 // Users controller functions
-exports.getAllUsers = async (req, res) => {
+http: exports.getAllUsers = async (req, res) => {
   try {
     const users = await User.find();
     res.status(200).json(users);
