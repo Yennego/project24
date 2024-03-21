@@ -1,0 +1,71 @@
+/* DocumentStyles.css */
+
+/* DocumentDetail */
+.document-detail-container {
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-bottom: 20px;
+}
+
+.document-title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.document-abstract {
+  font-size: 16px;
+}
+
+/* DocumentItem */
+.document-item {
+  background-color: #f9f9f9;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+.document-item-title {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+/* DocumentList */
+.document-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.document-list-item {
+  margin-bottom: 10px;
+}
+
+/* DocumentForm */
+.document-form {
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-bottom: 20px;
+}
+
+.document-form-input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.document-form-textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.document-form-submit {
+  background-color: #007bff;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}

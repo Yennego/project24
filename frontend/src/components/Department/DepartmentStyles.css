@@ -1,0 +1,71 @@
+/* DepartmentStyles.css */
+
+/* DepartmentDetail */
+.department-detail-container {
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-bottom: 20px;
+}
+
+.department-detail-title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.department-detail-description {
+  font-size: 16px;
+}
+
+/* DepartmentItem */
+.department-item {
+  background-color: #f9f9f9;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+.department-item-name {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+/* DepartmentList */
+.department-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.department-list-item {
+  margin-bottom: 10px;
+}
+
+/* DepartmentForm */
+.department-form {
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-bottom: 20px;
+}
+
+.department-form-input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.department-form-textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.department-form-submit {
+  background-color: #007bff;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
