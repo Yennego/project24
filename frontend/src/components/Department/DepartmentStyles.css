@@ -69,3 +69,11 @@
   border-radius: 5px;
   cursor: pointer;
 }
+
+.department-form-submit:hover {
+  background-color: #0069d9;
+}
+
+.department-form-submit:active {
+  background-color: #0062cc;
+}

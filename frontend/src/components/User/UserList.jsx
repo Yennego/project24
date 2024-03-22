@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import { getUsers } from "../../services/userApi";
 import UserItem from "./UserItem";
+import "./UserStyles.css";
 
 const UserList = () => {
   const [users, setUsers] = useState([]);
@@ -20,7 +21,7 @@ const UserList = () => {
   }, []);
 
   return (
-    <div>
+    <div className="user-list">
       <h2>User List</h2>
       {users.map((user) => (
         <UserItem key={user._id} user={user} />

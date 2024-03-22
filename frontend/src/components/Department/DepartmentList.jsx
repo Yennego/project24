@@ -1,10 +1,26 @@
 // DepartmentList.jsx
-// import React from "react";
-import PropTypes from "prop-types";
+import { useEffect, useState } from "react";
+// import PropTypes from "prop-types";
 import DepartmentItem from "./DepartmentItem";
+import { getAllDepartments } from "../../services/departmentApi"; // Import the getAllDepartments function
 import "./DepartmentStyles.css";
 
-const DepartmentList = ({ departments }) => {
+const DepartmentList = () => {
+  const [departments, setDepartments] = useState([]);
+
+  useEffect(() => {
+    const fetchDepartments = async () => {
+      try {
+        const departmentsData = await getAllDepartments(); // Fetch departments from the API
+        setDepartments(departmentsData);
+      } catch (error) {
+        console.error("Error fetching departments:", error);
+      }
+    };
+
+    fetchDepartments();
+  }, []);
+
   return (
     <div className="department-list">
       <h2>Department List</h2>
@@ -13,16 +29,6 @@ const DepartmentList = ({ departments }) => {
       ))}
     </div>
   );
-};
-
-DepartmentList.propTypes = {
-  departments: PropTypes.arrayOf(
-    PropTypes.shape({
-      _id: PropTypes.string.isRequired,
-      name: PropTypes.string.isRequired,
-      // Add additional proptypes for other department details if needed
-    })
-  ).isRequired,
 };
 
 export default DepartmentList;

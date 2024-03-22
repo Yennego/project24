@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import { getUserById } from "../../services/userApi";
 import PropTypes from "prop-types";
+import "./UserStyles.css";
 
 const UserDetail = ({ match }) => {
   const [user, setUser] = useState(null);
@@ -20,13 +21,15 @@ const UserDetail = ({ match }) => {
   }, [match.params.id]);
 
   return (
-    <div>
-      <h2>User Detail</h2>
+    <div className="user-detail-container">
+      <h2 className="user-detail-title">User Detail</h2>
       {user && (
         <div>
           <h3>{user.name}</h3>
-          <p>Email: {user.email}</p>
-          <p>Role: {user.roles.join(", ")}</p>
+          <p className="user-detail-description">Email: {user.email}</p>
+          <p className="user-detail-description">
+            Role: {user.roles.join(", ")}
+          </p>
           {/* Display other user details */}
         </div>
       )}

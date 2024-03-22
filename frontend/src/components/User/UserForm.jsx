@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { createUser } from "../../services/userApi";
+import "./UserStyles.css";
 
 const UserForm = () => {
   const history = useHistory();
@@ -30,7 +31,7 @@ const UserForm = () => {
 
   return (
     <div>
-      <h2>User Form</h2>
+      <h2 className="user-form">User Form</h2>
       <form onSubmit={handleSubmit}>
         <input
           type="text"
@@ -38,6 +39,7 @@ const UserForm = () => {
           placeholder="Name"
           value={formData.name}
           onChange={handleChange}
+          className="user-form-input"
         />
         <input
           type="email"
@@ -45,6 +47,7 @@ const UserForm = () => {
           placeholder="Email"
           value={formData.email}
           onChange={handleChange}
+          className="user-form-input"
         />
         <input
           type="password"
@@ -52,6 +55,7 @@ const UserForm = () => {
           placeholder="Password"
           value={formData.password}
           onChange={handleChange}
+          className="user-form-input"
         />
         <label htmlFor="roles">Role:</label>
         <select
@@ -59,11 +63,14 @@ const UserForm = () => {
           id="roles"
           value={formData.roles}
           onChange={handleChange}
+          className="user-form-select"
         >
           <option value="admin">Admin</option>
           <option value="user">User</option>
         </select>
-        <button type="submit">Create User</button>
+        <button type="submit" className="user-form-submit">
+          Create User
+        </button>
       </form>
     </div>
   );

@@ -1,0 +1,77 @@
+/* CategoryDetail */
+.category-detail-container {
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-bottom: 20px;
+}
+
+.category-detail-title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.category-detail-description {
+  font-size: 16px;
+}
+
+/* CategoryItem */
+.category-item {
+  background-color: #f9f9f9;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+.category-item-name {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+/* CategoryList */
+.category-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.category-list-item {
+  margin-bottom: 10px;
+}
+
+/* CategoryForm */
+.category-form {
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-bottom: 20px;
+}
+
+.category-form-input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.category-form-textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.category-form-submit {
+  background-color: #007bff;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.category-form-submit:hover {
+  background-color: #0069d9;
+}
+
+.category-form-submit:active {
+  background-color: #0062cc;
+}

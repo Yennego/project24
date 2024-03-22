@@ -1,11 +1,12 @@
 // import React from "react";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
+import "./UserStyles.css";
 
 const UserItem = ({ user }) => {
   return (
-    <div>
-      <h3>{user.name}</h3>
+    <div className="user-item">
+      <h3 className="user-item-name">{user.name}</h3>
       <p>Email: {user.email}</p>
       <p>Role: {user.role}</p>
       <Link to={`/users/${user._id}`}>View Details</Link>

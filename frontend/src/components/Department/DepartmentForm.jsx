@@ -1,15 +1,24 @@
 // DepartmentForm.jsx
 import { useState } from "react";
 import PropTypes from "prop-types";
+import { createDepartment } from "../../services/departmentApi";
+import { useHistory } from "react-router-dom";
 import "./DepartmentStyles.css";
 
-const DepartmentForm = ({ onSubmit }) => {
+const DepartmentForm = () => {
   const [name, setName] = useState("");
+  const history = useHistory();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    onSubmit({ name });
-    setName("");
+    try {
+      // Send department data to the server
+      await createDepartment({ name }); // Assuming your API function accepts an object with department properties
+      // Redirect to DepartmentList after successful creation
+      history.push("/departmentList");
+    } catch (error) {
+      console.error("Error creating department:", error);
+    }
   };
 
   return (

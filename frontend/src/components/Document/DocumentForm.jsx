@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useHistory } from "react-router-dom";
 import { createDocument } from "../../services/documentApi";
 import "./DocumentStyles.css";
 
@@ -9,11 +10,15 @@ const DocumentForm = () => {
     author: "",
   });
 
+  const history = useHistory();
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      //send data to server
       await createDocument(formData);
-      // Optionally, you can redirect after successful creation
+      // Redirect to the departlist page after successful creation
+      history.push("/DepartmentList");
     } catch (error) {
       console.error("Error creating document:", error);
     }

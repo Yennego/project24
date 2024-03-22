@@ -1,0 +1,77 @@
+/* UserDetail */
+.user-detail-container {
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-bottom: 20px;
+}
+
+.user-detail-title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.user-detail-description {
+  font-size: 16px;
+}
+
+/* UserItem */
+.user-item {
+  background-color: #f9f9f9;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+.user-item-name {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+/* UserList */
+.user-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.user-list-item {
+  margin-bottom: 10px;
+}
+
+/* UserForm */
+.user-form {
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-bottom: 20px;
+}
+
+.user-form-input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.user-form-select {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.user-form-submit {
+  background-color: #007bff;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.user-form-submit:hover {
+  background-color: #0069d9;
+}
+
+.user-form-submit:active {
+  background-color: #0062cc;
+}
