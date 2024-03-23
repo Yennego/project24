@@ -1,5 +1,7 @@
+// Backend\index.js
 const express = require("express");
 const bodyParser = require("body-parser");
+const cors = require("cors");
 const { connectDB } = require("./config/db");
 const session = require("express-session");
 const passport = require("./config/passport");
@@ -12,6 +14,20 @@ dotenv.config();
 const app = express();
 
 app.use(bodyParser.urlencoded({ extended: true }));
+const allowedOrigins = ["http://localhost:5173"];
+
+app.use(
+  cors({
+    origin: function (origin, callback) {
+      // Check if the request origin is allowed
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+  })
+);
 
 //MongoDB connection URI and JWT secret key
 const dbURI = process.env.MONGODB_URI;
